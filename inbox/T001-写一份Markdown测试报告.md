@@ -1,4 +1,6 @@
-status: reviewed
+status: accepted
+
+> Lo 于 2026-10-09 验收通过（小咩代笔改状态，验收决定为 Lo 本人作出）。
 
 # T001 写一份 Markdown 测试报告
 
