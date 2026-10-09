@@ -1,4 +1,4 @@
-status: in_progress
+status: done
 
 # T001 写一份 Markdown 测试报告
 
