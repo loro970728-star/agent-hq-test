@@ -31,8 +31,8 @@ todo → in_progress → done → reviewed → accepted
 
 ## 3. 文件隔离
 
-- Codex 只写 `work/codex/<任务编号>/`，不碰其他目录。
-- Claude Code 只写 `work/claude-code/<任务编号>/`，不碰其他目录。
+- Codex 的**执行产出**只写在 `work/codex/<任务编号>/`；除本公约明确授权的 `evidence/<任务编号>/` 和任务文件的 status 行外，不碰其他目录。
+- Claude Code 的**复核意见**只写在 `work/claude-code/<任务编号>/`；除 `evidence/<任务编号>/`、任务文件的 status 行、以及打回时追加的 `review:` 行外，不碰其他目录。
 - 验收证据（测试输出、截图、复核清单）放在 `evidence/<任务编号>/`，由产出方写入。
 - `inbox/` 内任务正文由发起人（和小咩代笔）维护；**第一行的 status 行由流程中对应的 agent 更新**（Codex 写 `in_progress`/`done`，Claude Code 写 `reviewed`，Lo 写 `accepted`）。
 - `plans/` 由小咩维护，其他人只读不写。
@@ -48,6 +48,7 @@ todo → in_progress → done → reviewed → accepted
 1. 在任务正文追加一行：`review: rejected（原因）`
 2. 把状态从 `done` 回退为 `in_progress`，单独提交，commit message 注明返工，例如：`T001: done → in_progress (rework)`
 3. Codex 返工后重新提交，状态再次变为 `done`，等待复核
+4. 返工通过后，在 `review: rejected` 行下方追加 `review: resolved`，保留审计痕迹（不要删除 rejected 行）
 
 ## 5. V1 禁止事项
 
@@ -57,5 +58,6 @@ todo → in_progress → done → reviewed → accepted
 
 ## 修订记录
 
+- v1.3（2026-10-09）：Claude Code 审查报告的 3 处遗留问题——① §3 明确授权例外：执行产出目录与 evidence/、status 行、review: 行的授权分开写（P1）；② 打回通过后追加 `review: resolved` 保留审计痕迹（P3）；③ README.md / plans/README.md 中"主持人"同步为"秘书"（P2，见对应文件）。
 - v1.2（2026-10-09）：小咩身份更新为"秘书"（Lo 钦定）：只对 Lo 负责，职责为传话、过滤、记账；无最终批准权。
 - v1.1（2026-10-09）：修复两处矛盾，均由 Claude Code 在 Codex 进场前审查发现——① inbox/ 写入权限：status 行由流程中对应的 agent 更新（原 §2 与 §3 打架）；② 打回后状态卡死：允许打回时 `done → in_progress` 回退并注明原因（原"不许回退"与"打回保持 done"语义冲突）。
