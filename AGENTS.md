@@ -44,6 +44,11 @@ todo → in_progress → done → reviewed → accepted
 - 执行产出说明（做了什么、在哪）
 - 可验证的结果（测试输出、截图、或复核清单）
 
+验收证据必须可独立复现，须包含：
+1. 工具的**完整路径**（如 `where python` 的输出），而不只是版本号
+2. 可复现的**命令原文**
+3. **执行环境**（哪台机器 / 哪个克隆目录）
+
 没有证据或复核不通过，复核者有权打回，打回动作如下：
 1. 在任务正文追加一行：`review: rejected（原因）`
 2. 把状态从 `done` 回退为 `in_progress`，单独提交，commit message 注明返工，例如：`T001: done → in_progress (rework)`
@@ -56,8 +61,50 @@ todo → in_progress → done → reviewed → accepted
 - 不设定时巡逻，不做实时群聊。
 - 小咩不做最终批准，只汇总呈现，等 Lo 验收。
 
+## 6. 提交身份
+
+每个 agent 在自己的本地 clone 里设置独立的提交身份（只对本仓库生效，不影响他人）：
+
+| Agent | user.name | user.email |
+|---|---|---|
+| Lo | Lo | loro970728@gmail.com |
+| Codex | Codex | loro970728@gmail.com |
+| Claude Code | Claude Code | loro970728@gmail.com |
+
+设置命令：
+
+```
+git config --local user.name "<你的名字>"
+git config --local user.email "loro970728@gmail.com"
+```
+
+设置后**必须验证**：
+
+```
+git config --local user.name          # 应输出你的名字
+```
+
+首次提交后再核对：
+
+```
+git log -1 --format='%an <%ae>'       # 应显示 <你的名字> <loro970728@gmail.com>
+```
+
+名字独立便于在 `git log` 里区分 agent；邮箱共用 Lo 已关联的邮箱，GitHub 上仍关联 Lo 的账号（有头像、计入贡献）。
+
+小咩经 GitHub App 直接写入远程仓库，不经过本地 clone，提交作者显示为仓库所有者，commit message 中注明代笔/批准情况。
+
+## 7. 单源真相
+
+规则只在 `AGENTS.md` 定义一次。
+
+各子目录的 `README.md` 只说明"**本目录放什么**"，涉及"**规则是什么**"一律写"见 `AGENTS.md`"，不得复述。
+
+理由：复述必过期。历史上已因复述造成三次规则不同步（v1.1 漏改 status 行相邻行、v1.2 漏改两处 README、v1.3 漏改 codex README）。
+
 ## 修订记录
 
+- v1.4（2026-10-09）：采纳 Claude Code《V1.4 修订建议》全部四节——① 提交身份：名字独立 + 共用已关联邮箱，强制验证步骤（Lo 已定稿）；② 验收证据须可独立复现（完整路径 / 命令原文 / 执行环境）；③ 单源真相：规则只在 AGENTS.md 定义一次，子目录 README 不得复述。P5（work/codex/README.md）Codex 已自行修复，无需改动。
 - v1.3（2026-10-09）：Claude Code 审查报告的 3 处遗留问题——① §3 明确授权例外：执行产出目录与 evidence/、status 行、review: 行的授权分开写（P1）；② 打回通过后追加 `review: resolved` 保留审计痕迹（P3）；③ README.md / plans/README.md 中"主持人"同步为"秘书"（P2，见对应文件）。
 - v1.2（2026-10-09）：小咩身份更新为"秘书"（Lo 钦定）：只对 Lo 负责，职责为传话、过滤、记账；无最终批准权。
 - v1.1（2026-10-09）：修复两处矛盾，均由 Claude Code 在 Codex 进场前审查发现——① inbox/ 写入权限：status 行由流程中对应的 agent 更新（原 §2 与 §3 打架）；② 打回后状态卡死：允许打回时 `done → in_progress` 回退并注明原因（原"不许回退"与"打回保持 done"语义冲突）。
