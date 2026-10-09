@@ -1,0 +1,9 @@
+T001 Python Hello World 运行记录
+
+Python: 3.12.14
+命令：<Python 解释器> work/codex/T001/hello.py
+标准输出：
+Hello, world!
+标准错误：（空）
+退出码：0
+
