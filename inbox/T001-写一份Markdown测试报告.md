@@ -1,4 +1,4 @@
-status: done
+status: reviewed
 
 # T001 写一份 Markdown 测试报告
 
